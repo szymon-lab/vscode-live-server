@@ -144,13 +144,14 @@ export class Helper {
     static getProxySetup() {
         const proxySetup = Config.getProxy;
         let proxy = [[]];
-        if (proxySetup.enable === true) {
-            proxy[0].push(proxySetup.baseUri, proxySetup.proxyUri);
+        if (proxySetup.length === 0) {
+            return null;
         }
-        else {
-            proxy = null; // required to change the type [[]] to black array [].
-        }
-
+        proxySetup.forEach(element => {
+            if (element.enable === true) {
+                proxy[0].push(element.baseUri, element.proxyUri);
+            }
+        });
         return proxy;
     }
 }
